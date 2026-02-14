@@ -46,8 +46,8 @@ func makeTestDataDir(t *testing.T) string {
 	row1 := make([]string, len(cols))
 	row1[0] = "1234567890"  // NPI
 	row1[1] = "1"           // Entity Type (Individual)
-	row1[6] = "DOE"         // Last name (reader index 6)
-	row1[7] = "JOHN"        // First name (reader index 7)
+	row1[5] = "DOE"         // Last name (schema index 5)
+	row1[6] = "JOHN"        // First name (schema index 6)
 	row1[23] = "CA"         // Mailing state
 	row1[24] = "90210"      // Mailing postal code
 	row1[47] = "207Q00000X" // Taxonomy code 1
@@ -55,8 +55,8 @@ func makeTestDataDir(t *testing.T) string {
 	row2 := make([]string, len(cols))
 	row2[0] = "2345678901"
 	row2[1] = "1"
-	row2[6] = "SMITH"
-	row2[7] = "JANE"
+	row2[5] = "SMITH"
+	row2[6] = "JANE"
 	row2[23] = "NY"
 	row2[24] = "10001"
 	row2[47] = "208600000X"
