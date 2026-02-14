@@ -212,25 +212,25 @@ func (r *NppesReader) parseMainRecord(row []string, lineNum int) (NppesRecord, e
 	}
 
 	providerName := ProviderName{
-		Prefix:     parseNamePrefix(getOptionalField(row, 9)),
-		First:      getOptionalField(row, 7),
-		Middle:     getOptionalField(row, 8),
-		Last:       getOptionalField(row, 6),
-		Suffix:     parseNameSuffix(getOptionalField(row, 10)),
-		Credential: getOptionalField(row, 11),
+		Prefix:     parseNamePrefix(getOptionalField(row, 8)),
+		First:      getOptionalField(row, 6),
+		Middle:     getOptionalField(row, 7),
+		Last:       getOptionalField(row, 5),
+		Suffix:     parseNameSuffix(getOptionalField(row, 9)),
+		Credential: getOptionalField(row, 10),
 	}
 
 	providerOtherName := ProviderName{
-		Prefix:     parseNamePrefix(getOptionalField(row, 17)),
-		First:      getOptionalField(row, 15),
-		Middle:     getOptionalField(row, 16),
-		Last:       getOptionalField(row, 14),
-		Suffix:     parseNameSuffix(getOptionalField(row, 18)),
-		Credential: getOptionalField(row, 19),
+		Prefix:     parseNamePrefix(getOptionalField(row, 16)),
+		First:      getOptionalField(row, 14),
+		Middle:     getOptionalField(row, 15),
+		Last:       getOptionalField(row, 13),
+		Suffix:     parseNameSuffix(getOptionalField(row, 17)),
+		Credential: getOptionalField(row, 18),
 	}
 
 	var orgOtherNameType *OtherProviderNameTypeCode
-	if s := getOptionalField(row, 13); s != "" {
+	if s := getOptionalField(row, 12); s != "" {
 		t, ok := OtherProviderNameTypeCodeFromCode(s)
 		if ok {
 			orgOtherNameType = &t
@@ -239,7 +239,7 @@ func (r *NppesReader) parseMainRecord(row []string, lineNum int) (NppesRecord, e
 
 	orgName := OrganizationName{
 		LegalBusinessName: getOptionalField(row, 4),
-		OtherName:         getOptionalField(row, 12),
+		OtherName:         getOptionalField(row, 11),
 		OtherNameType:     orgOtherNameType,
 	}
 
@@ -400,7 +400,7 @@ func (r *NppesReader) parseMainRecord(row []string, lineNum int) (NppesRecord, e
 
 	// Provider other name type code
 	var providerOtherNameType *OtherProviderNameTypeCode
-	if s := getOptionalField(row, 20); s != "" {
+	if s := getOptionalField(row, 19); s != "" {
 		t, ok := OtherProviderNameTypeCodeFromCode(s)
 		if ok {
 			providerOtherNameType = &t

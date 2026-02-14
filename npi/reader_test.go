@@ -17,9 +17,9 @@ func createTestMainCSV(t *testing.T, dir string) string {
 	row[0] = "1234567890"   // NPI
 	row[1] = "1"            // Entity Type Code
 	row[4] = ""             // Org Name
-	row[6] = "DOE"          // Last Name
-	row[7] = "JOHN"         // First Name
-	row[8] = "A"            // Middle Name
+	row[5] = "DOE"          // Last Name
+	row[6] = "JOHN"         // First Name
+	row[7] = "A"            // Middle Name
 	row[20] = "123 MAIN ST" // Mailing Line 1
 	row[22] = "ANYTOWN"     // City
 	row[23] = "CA"          // State
@@ -206,8 +206,8 @@ func TestLoadMainDataSkipInvalid(t *testing.T) {
 	row1 := make([]string, len(cols))
 	row1[0] = "1234567890"
 	row1[1] = "1"
-	row1[6] = "DOE"
-	row1[7] = "JOHN"
+	row1[5] = "DOE"
+	row1[6] = "JOHN"
 
 	// Invalid row (bad NPI)
 	row2 := make([]string, len(cols))

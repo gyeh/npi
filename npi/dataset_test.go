@@ -260,8 +260,8 @@ func TestLoadStandard(t *testing.T) {
 	row := make([]string, len(cols))
 	row[0] = "1234567890"
 	row[1] = "1"
-	row[6] = "DOE"
-	row[7] = "JOHN"
+	row[5] = "DOE"
+	row[6] = "JOHN"
 	row[23] = "CA"
 	content := header + "\n" + strings.Join(row, ",") + "\n"
 	os.WriteFile(filepath.Join(dir, "npidata_pfile_20240101.csv"), []byte(content), 0644)

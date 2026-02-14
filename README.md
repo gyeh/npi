@@ -33,21 +33,21 @@ ds, err := npi.LoadStandard("./data", nppes.WithLogger(func(format string, args 
 
 ```go
 // By NPI
-provider := ds.GetByNPI("1234567890")
+provider := ds.GetByNPI("1112223334")
 
 // By state
-caProviders := ds.GetByState("CA")
+caProviders := ds.GetByState("MN")
 
 // Chainable query builder
 results := ds.Query().
-    State("CA").
-    PostalCode("90210").
+    State("MN").
+    PostalCode("55454").
     ActiveOnly().
     Execute()
 
 // With specialty filter and limit
 results := ds.Query().
-    Specialty("Cardiology").
+    Specialty("Dermotology").
     Limit(100)
 ```
 
@@ -56,8 +56,8 @@ results := ds.Query().
 ```go
 analytics := npi.NewNppesAnalytics(ds.Providers)
 
-byName := analytics.FindByName("smith")
-topStates := analytics.TopStatesByProviderCount(10)
+byName := analytics.FindByName("lang")
+topStates := analytics.TopStatesByProviderCount(5)
 stats := analytics.ComputeDatasetStats()
 ```
 
@@ -74,7 +74,7 @@ exporter, _ := npi.NewExporter(npi.ExportFormatJSON)
 exporter.Export(providers, "output.json")
 
 // Filtered subset export
-npi.ExportSubset(ds, "ca_providers.json", func(p *nppes.NppesRecord) bool {
+npi.ExportSubset(ds, "ca_providers.json", func(p *npi.NppesRecord) bool {
     return p.MailingAddress.State != nil && p.MailingAddress.State.AsCode() == "CA"
 }, npi.ExportFormatJSON)
 ```
@@ -82,7 +82,7 @@ npi.ExportSubset(ds, "ca_providers.json", func(p *nppes.NppesRecord) bool {
 ### Downloading NPI data
 
 ```go
-downloader := npi.NewNppesDownloaderWithConfig(nppes.DownloadConfig{
+downloader := npi.NewNppesDownloaderWithConfig(npi.DownloadConfig{
     OutputDir: "./data",
     KeepFiles: true,
 })
@@ -130,13 +130,13 @@ Output includes total provider count, individual vs. organization breakdown, act
 
 ```sh
 # By state
-npi query --data-dir ./data --state CA
+npi query --data-dir ./data --state MN 
 
 # By specialty (substring match on taxonomy display name)
-npi query --data-dir ./data --specialty Cardiology
+npi query --data-dir ./data --specialty Dermotology 
 
 # By postal code prefix (matches mailing or practice address)
-npi query --data-dir ./data --postal-code 90210
+npi query --data-dir ./data --postal-code 55454
 npi query --data-dir ./data --postal-code 902    # matches all 902xx zip codes
 
 # Combined filters
@@ -144,7 +144,7 @@ npi query --data-dir ./data --state NY --specialty "Internal Medicine" --active 
 npi query --data-dir ./data --state CA --postal-code 902 --active
 
 # By NPI
-npi query --data-dir ./data --npi 1234567890
+npi query --data-dir ./data --npi 1112223334
 ```
 
 Output format: `NPI | Name | EntityType | State`
@@ -153,16 +153,16 @@ Output format: `NPI | Name | EntityType | State`
 
 ```sh
 # JSON (pretty-printed array)
-npi export --data-dir ./data --output providers.json --format json --state CA
+npi export --data-dir ./data --output providers.json --format json --state MN 
 
 # Normalized CSV (produces two files: *_providers.csv and *_taxonomies.csv)
-npi export --data-dir ./data --output providers.csv --format csv --specialty Cardiology
+npi export --data-dir ./data --output providers.csv --format csv --specialty Dermotology
 
 # Filter by postal code prefix (matches mailing or practice address)
 npi export --data-dir ./data --output local.json --format json --postal-code 902
 
 # PostgreSQL SQL (CREATE TABLE + batched INSERTs)
-npi export --data-dir ./data --output providers.sql --format sql --state NY --active
+npi export --data-dir ./data --output providers.sql --format sql --state MN --active
 ```
 
 ## Data Files
